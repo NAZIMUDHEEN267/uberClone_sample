@@ -13,11 +13,15 @@ const data = [
     id: "456",
     title: "Order food",
     image: "https://links.papareact.com/28w",
-    screen: "EatsScreen"
+    screen: "OrderScreen"
   }
 ]
 
 export class NavOptions extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <View>
@@ -26,7 +30,10 @@ export class NavOptions extends Component {
           horizontal
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}>
+            <TouchableOpacity
+              style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
+              onPress={() => this.props.navigation.navigate(item.screen)}
+            >
               <Image
                 style={{ width: 120, height: 120, resizeMode: "contain" }}
                 source={{ uri: item.image }} />

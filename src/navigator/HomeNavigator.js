@@ -3,7 +3,6 @@ import HomeScreen from "../screens/HomeScreen";
 import MapScreen from "../screens/MapScreen";
 import OrderScreen from "../screens/OrderScreen";
 
-
 const Stack = createStackNavigator();
 
 export default function HomeNavigator() {
