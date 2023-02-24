@@ -2,11 +2,12 @@ import { Text, View, PermissionsAndroid } from 'react-native'
 import React, { Component } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from "react-native-geolocation-service";
-import tw from 'tailwind-react-native-classnames';
+import pw from "tailwind-react-native-classnames";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export class Location extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             latitude: 0,
             longitude: 0,
@@ -32,32 +33,36 @@ export class Location extends Component {
         })
     }
 
-    componentDidUpdate(state) {
-        // console.log(this.state, "hello");
-    }
 
     render() {
         return (
-            <View className="h-48 w-full rounded-xl bg-gray-500 p-1 mt-20">
-                <MapView
-                    paddingAdjustmentBehavior='automatic'
-                    className="h-full w-full"
-                    // scrollEnabled={false}
-                    mapType={"standard"}
-                    region={{
-                        latitude: this.state.latitude,
-                        longitude: this.state.longitude,
-                        latitudeDelta: 0.022,
-                        longitudeDelta: 0.0500,
-                    }}
-                >
-                    <Marker
-                        coordinate={this.state}
-                        title={"title"}
-                        description={"description"}
-                    />
-                </MapView>
-            </View>
+            <TouchableOpacity
+                className="mt-20"
+                onPress={() => this.props.navigation.navigate("MapScreen")}
+                activeOpacity={1}
+            >
+                <Text className="text-xl font-bold text-black ml-1 mb-4">Around you</Text>
+                <View style={[pw`h-48 w-full rounded-xl bg-gray-300`, { padding: 7 }]}>
+                    <MapView
+                        className="h-full w-full"
+                        paddingAdjustmentBehavior='automatic'
+                        scrollEnabled={false}
+                        mapType={"standard"}
+                        region={{
+                            latitude: this.state.latitude,
+                            longitude: this.state.longitude,
+                            latitudeDelta: 0.022,
+                            longitudeDelta: 0.0500,
+                        }}
+                    >
+                        <Marker
+                            coordinate={this.state}
+                            title={"title"}
+                            description={"description"}
+                        />
+                    </MapView>
+                </View>
+            </TouchableOpacity>
         )
     }
 }
