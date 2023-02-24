@@ -6526,12 +6526,22 @@
     "jscodeshift" "^0.13.1"
     "nullthrows" "^1.1.1"
 
+"react-native-config@^1.5.0":
+  "integrity" "sha512-slecooA/0tCwhb+RuWEbwLqtKirGh9vWPRpgDfH7uPAraCciqHNH2XjS9ylW+Spn4FUrHg5KWTqUGs9BdBADHg=="
+  "resolved" "https://registry.npmjs.org/react-native-config/-/react-native-config-1.5.0.tgz"
+  "version" "1.5.0"
+
 "react-native-dotenv@^3.4.7":
   "integrity" "sha512-GqUDdmrtKw7qYS9jjQLipEPctMd0YuSBNVZBNlaHtaHMJ63iaB4FABO4uX0iSUJpgMwozZki4fRv4dDHmVUoLg=="
   "resolved" "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-3.4.7.tgz"
   "version" "3.4.7"
   dependencies:
     "dotenv" "^16.0.3"
+
+"react-native-geolocation-service@^5.3.1":
+  "integrity" "sha512-LTXPtPNmrdhx+yeWG47sAaCgQc3nG1z+HLLHlhK/5YfOgfLcAb9HAkhREPjQKPZOUx8pKZMIpdGFUGfJYtimXQ=="
+  "resolved" "https://registry.npmjs.org/react-native-geolocation-service/-/react-native-geolocation-service-5.3.1.tgz"
+  "version" "5.3.1"
 
 "react-native-gesture-handler@^2.9.0", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-a0BcH3Qb1tgVqUutc6d3VuWQkI1AM3+fJx8dkxzZs9t06qA27QgURYFoklpabuWpsUTzuKRpxleykp25E8m7tg=="
