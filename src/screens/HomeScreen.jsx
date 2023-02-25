@@ -6,6 +6,7 @@ import Location from '../components/Location';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { connect } from "react-redux";
 import { setOrigin, selectOrigin, setDestination } from '../redux/slices/navSlice';
+import { API_KEY } from "@env";
 
 export class Home extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export class Home extends Component {
                 }
               }}
               query={{
-                key: "AIzaSyCuGCb09imbB3mLQJPkrpTSVZGD0HtM1Oo",
+                key: API_KEY,
                 language: "en"
               }}
               onPress={(data, details = null) => {

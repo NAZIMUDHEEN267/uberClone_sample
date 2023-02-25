@@ -4,6 +4,11 @@ import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import { selectOrigin } from '../redux/slices/navSlice';
+import { createStackNavigator } from "@react-navigation/stack";
+import NavigateCard from "../screens/NavigateCard";
+import RideOptionCard from "../screens/RideOptionCard";
+
+const Stack = createStackNavigator();
 
 export class MapScreen extends Component {
   constructor(props) {
@@ -20,9 +25,10 @@ export class MapScreen extends Component {
       this.setState({ fullMap: false, location: this.props.nav.origin.location.location })
     } else if (this.props.route?.params) {
       this.setState({ ...this.state, fullMap: true })
-    } else {
-      Alert.alert("Select", "please type your starting point in home screen", [{ style: "cancel" }])
     }
+    // else {
+    //   Alert.alert("Select", "please type your starting point in home screen", [{ style: "cancel" }])
+    // }
   }
 
   render() {
@@ -48,11 +54,11 @@ export class MapScreen extends Component {
           <View style={tw`h-1/2`}>
             <MapView
               style={tw`h-full w-full`}
-              initialRegion={{
+              region={{
                 latitude: this.state.location?.lat || 46.8182,
                 longitude: this.state.location?.lng | 8.2275,
-                latitudeDelta: 0.005,
-                longitudeDelta: 0.005,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
               }}
             >
               {this.state.location &&
@@ -61,22 +67,17 @@ export class MapScreen extends Component {
                     latitude: this.state.location.lat,
                     longitude: this.state.location.lng
                   }}
-                  title={"Origin"}
-                  description={this.props.nav.origin.description}
-                  identifier={"origin"}
-                  loadingEnabled={true}
-                  loadingIndicatorColor="#666666"
-                  loadingBackgroundColor="#eeeeee"
-                  moveOnMarkerPress={true}
-                  showsUserLocation={true}
-                  showsCompass={true}
-                  showsPointsOfInterest={false}
-                  pinColor={"#000"}
-                  provider="google"
+                  title={"title"}
+                  description={"description"}
                 />}
             </MapView>
           </View>
-          <View style={tw`h-1/2`}></View>
+          <View style={tw`h-1/2`}>
+            <Stack.Navigator initialRouteName="Map" screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="NavigateCard" component={NavigateCard} />
+              <Stack.Screen name="RideOptionCard" component={RideOptionCard} />
+            </Stack.Navigator>
+          </View>
         </View>
     )
   }
