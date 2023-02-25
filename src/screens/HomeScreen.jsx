@@ -39,7 +39,7 @@ export class Home extends Component {
               }}
               onPress={(data, details = null) => {
                 this.props.changeOrigin({
-                  location: details.geometry,
+                  location: details.geometry.location,
                   description: data.description
                 });
 
