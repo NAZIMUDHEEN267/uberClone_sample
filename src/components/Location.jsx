@@ -38,7 +38,7 @@ export class Location extends Component {
         return (
             <TouchableOpacity
                 className="mt-20"
-                onPress={() => this.props.navigation.navigate("MapScreen")}
+                onPress={() => this.props.navigation.navigate("MapScreen", {latitude: this.state.latitude, longitude: this.state.longitude})}
                 activeOpacity={1}
             >
                 <Text className="text-xl font-bold text-black ml-1 mb-4">Around you</Text>

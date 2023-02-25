@@ -3,6 +3,6 @@ import navReducer from "./slices/navSlice";
 
 export default configureStore({
     reducer: {
-        navReducer
+        nav: navReducer
     }
 })

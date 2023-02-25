@@ -5,6 +5,13 @@ import store from './src/redux/store';
 import MainNavigator from './src/navigator';
 
 export class App extends Component {
+  componentDidUpdate() {
+    const subscribe = store.subscribe(() => {
+      console.log(store.getState());
+    })
+    subscribe();
+  }
+
   render() {
     return (
       <Provider store={store}>

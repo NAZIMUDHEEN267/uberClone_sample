@@ -26,6 +26,6 @@ export default reducer;
 export const { setOrigin, setDestination, setTravelTimeInformation } = actions;
 
 // selectors
-export const selectOrigin = (state) => state.nav.origin;
+export const selectOrigin = (origin) => origin;
 export const selectDestination = (state) => state.nav.destination; 
 export const selectTravelTimeInformation = (state) => state.nav.travelTimeInformation; 
