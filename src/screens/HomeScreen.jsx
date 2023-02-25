@@ -13,11 +13,10 @@ export class Home extends Component {
 
     this.props.changeOrigin();
   }
-  
+
   render() {
     return (
-      <ScrollView>
-        <SafeAreaView style={tw`bg-white h-full`}>
+      <SafeAreaView style={tw`bg-white h-full`}>
           <View style={tw`p-5`}>
             {/* image */}
             <Image
@@ -42,7 +41,7 @@ export class Home extends Component {
                   location: details.geometry,
                   description: data.description
                 });
-                
+
                 this.props.changeDispatch(null);
               }}
               fetchDetails={true}
@@ -57,8 +56,7 @@ export class Home extends Component {
             {/* Map */}
             <Location {...this.props} />
           </View>
-        </SafeAreaView>
-      </ScrollView>
+      </SafeAreaView>
     )
   }
 }
