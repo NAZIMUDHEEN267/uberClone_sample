@@ -4,7 +4,8 @@ const initialState = {
     origin: null,
     destination: null,
     travelTimeInformation: null,
-    searchHistory: []
+    searchHistory: [],
+    distance: []
 }
 
 const { actions, reducer } = createSlice({
@@ -21,13 +22,16 @@ const { actions, reducer } = createSlice({
             state.travelTimeInformation = action.payload;
         },
         setHistory(state, payload){
-            state.searchHistory.push(payload);
+            state.searchHistory = payload;
+        },
+        setDistance(state, action){
+            state.distance = action.payload;
         }
     }
 });
 
 export default reducer;
-export const { setOrigin, setDestination, setTravelTimeInformation, setHistory } = actions;
+export const { setOrigin, setDestination, setTravelTimeInformation, setHistory, setDistance } = actions;
 
 // selectors
 export const selectOrigin = (state) => state;

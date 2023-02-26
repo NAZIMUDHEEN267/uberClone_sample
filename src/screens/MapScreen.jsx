@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import MapView, { Marker, Polygon } from 'react-native-maps';
 import { connect } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
-import { selectOrigin } from '../redux/slices/navSlice';
+import { selectOrigin, setDistance } from '../redux/slices/navSlice';
 import { createStackNavigator } from "@react-navigation/stack";
 import NavigateCard from "../screens/NavigateCard";
 import RideOptionCard from "../screens/RideOptionCard";
@@ -39,14 +39,32 @@ export class MapScreen extends Component {
     // }
   }
 
+  getTravelTime() {
+    return fetch(
+      `https://maps.googleapis.com/maps/api/distancematrix/json?
+      units=imperial&origins=${this.origin?.description}
+      &destinations=${this.destination?.description}&key=${API_KEY}`
+    )
+  }
+
   componentDidUpdate() {
     this.origin = this.props.nav.origin;
     this.destination = this.props.nav.destination;
 
-    if (this.origin && this.destination) {
+    if (this.origin?.description && this.destination?.description) {
       this.MapViewRef.fitToSuppliedMarkers(['origin', 'destination'],
-        { edgePadding: { left: 50, right: 50, top: 50, bottom: 50 } });
+        { edgePadding: { left: 50, right: 0, top: 50, bottom: 50 } });
+  
+      this.getTravelTime()
+        .then(data => data.json())
+        .then(value => {
+          this.props.changeDestination(value.rows[0].elements[0]);
+        }).catch(err => {
+          console.log(err);
+        })
     }
+
+    console.log(this.props.nav.distance);
   }
 
   render() {
@@ -122,7 +140,7 @@ export class MapScreen extends Component {
             </MapView>
           </View>
           <View style={tw`h-1/2`}>
-            <Stack.Navigator initialRouteName="RideOptionCard" screenOptions={{ headerShown: false }}>
+            <Stack.Navigator  screenOptions={{ headerShown: false }}>
               <Stack.Screen name="NavigateCard" component={NavigateCard} />
               <Stack.Screen name="RideOptionCard" component={RideOptionCard} />
             </Stack.Navigator>
@@ -132,4 +150,9 @@ export class MapScreen extends Component {
   }
 }
 
-export default connect(selectOrigin)(MapScreen);
+const getDispatch = dispatch => {
+  return {
+    changeDestination: (value) => dispatch(setDistance(value))
+  }
+}
+export default connect(selectOrigin, getDispatch)(MapScreen);

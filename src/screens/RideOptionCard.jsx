@@ -1,8 +1,11 @@
-import { Text, View, VirtualizedList } from 'react-native'
+import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon, Image } from '@rneui/base'
-import tw from 'tailwind-react-native-classnames'
+import tw from 'tailwind-react-native-classnames';
+import { connect } from 'react-redux';
+import { getDistance } from '../redux/slices/navSlice';
+import { API_KEY } from "@env";
 
 export class RideOptionCard extends Component {
 
@@ -10,6 +13,7 @@ export class RideOptionCard extends Component {
     super();
     this.state = {};
   }
+
 
   data = [
     {
@@ -39,7 +43,7 @@ export class RideOptionCard extends Component {
           <TouchableOpacity style={{ flex: .5, padding: 13, borderRadius: 25 }} onPress={() => this.props.navigation.navigate("NavigateCard")}>
             <Icon name='chevron-left' size={20} type="font-awesome" />
           </TouchableOpacity>
-          <Text className="text-center py-5 text-xl" style={{ flex: 1 }}>Select a Ride</Text>
+          <Text className="text-center py-5 text-xl" style={{ flex: 1 }}>Select a Ride - {!Array.isArray(this.props.nav.distance) ? this.props.nav.distance.distance.text : ""}</Text>
         </View>
 
 
@@ -67,7 +71,7 @@ export class RideOptionCard extends Component {
 
                 <View className="-ml-6">
                   <Text style={tw`text-lg font-semibold `}>{item.title}</Text>
-                  <Text>Travel time</Text>
+                  <Text>{!Array.isArray(this.props.nav.distance) ? this.props.nav.distance.duration.text : ""}</Text>
                 </View>
 
                 <Text className="text-xl text-black">${item.multiplier * 22}</Text>
@@ -80,4 +84,13 @@ export class RideOptionCard extends Component {
   }
 }
 
-export default RideOptionCard
+function getState(state) {
+  return state
+}
+
+function fetchDistance(dispatch) {
+  return {
+    data: () => dispatch(getDistance(API_KEY))
+  }
+}
+export default connect(getState, fetchDistance)(RideOptionCard);
