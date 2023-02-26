@@ -16,7 +16,6 @@ const data = [
     screen: "OrderScreen"
   }
 ]
-
 export class NavOptions extends Component {
   constructor(props) {
     super(props);

@@ -5,7 +5,7 @@ import NavOptions from '../components/NavOptions';
 import Location from '../components/Location';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { connect } from "react-redux";
-import { setOrigin, selectOrigin, setDestination } from '../redux/slices/navSlice';
+import { setOrigin, selectOrigin, setDestination, setHistory } from '../redux/slices/navSlice';
 import { API_KEY } from "@env";
 
 export class Home extends Component {
@@ -43,7 +43,12 @@ export class Home extends Component {
                   description: data.description
                 });
 
-                this.props.changeDispatch(null);
+                this.props.changeHistory({
+                  location: details.geometry.location,
+                  description: data.description
+                })
+
+                this.props.changeDestination(null);
               }}
               fetchDetails={true}
               enablePoweredByContainer={false}
@@ -66,7 +71,8 @@ export class Home extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     changeOrigin: (value) => dispatch(setOrigin(value)),
-    changeDispatch: (value) => dispatch(setDestination(value))
+    changeDestination: (value) => dispatch(setDestination(value)),
+    changeHistory: (value) => dispatch(setHistory(value))
   }
 }
 

@@ -122,7 +122,7 @@ export class MapScreen extends Component {
             </MapView>
           </View>
           <View style={tw`h-1/2`}>
-            <Stack.Navigator initialRouteName="Map" screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName="RideOptionCard" screenOptions={{ headerShown: false }}>
               <Stack.Screen name="NavigateCard" component={NavigateCard} />
               <Stack.Screen name="RideOptionCard" component={RideOptionCard} />
             </Stack.Navigator>

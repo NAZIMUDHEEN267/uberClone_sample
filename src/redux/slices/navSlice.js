@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     origin: null,
     destination: null,
-    travelTimeInformation: null
+    travelTimeInformation: null,
+    searchHistory: []
 }
 
 const { actions, reducer } = createSlice({
@@ -18,12 +19,15 @@ const { actions, reducer } = createSlice({
         },
         setTravelTimeInformation(state, action){
             state.travelTimeInformation = action.payload;
+        },
+        setHistory(state, payload){
+            state.searchHistory.push(payload);
         }
     }
 });
 
 export default reducer;
-export const { setOrigin, setDestination, setTravelTimeInformation } = actions;
+export const { setOrigin, setDestination, setTravelTimeInformation, setHistory } = actions;
 
 // selectors
 export const selectOrigin = (state) => state;
