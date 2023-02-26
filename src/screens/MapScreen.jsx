@@ -9,6 +9,8 @@ import NavigateCard from "../screens/NavigateCard";
 import RideOptionCard from "../screens/RideOptionCard";
 import MapViewDirections from 'react-native-maps-directions';
 import { API_KEY } from "@env";
+import { Image } from '@rneui/base';
+import UberPng from "../assets/uber.256x256.png"
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,7 @@ export class MapScreen extends Component {
 
     this.origin = null;
     this.destination = null;
+    this.MapViewRef;
   }
 
   componentDidMount() {
@@ -39,18 +42,11 @@ export class MapScreen extends Component {
   componentDidUpdate() {
     this.origin = this.props.nav.origin;
     this.destination = this.props.nav.destination;
-  }
 
-  tokyoRegion = {
-    latitude: 35.6762,
-    longitude: 139.6503,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  };
-  chibaRegion = {
-    latitude: 35.6074,
-    longitude: 140.1065,
-    latitudeDelta: 0.01,
+    if (this.origin && this.destination) {
+      this.MapViewRef.fitToSuppliedMarkers(['origin', 'destination'],
+        { edgePadding: { left: 50, right: 50, top: 50, bottom: 50 } });
+    }
   }
 
   render() {
@@ -61,8 +57,8 @@ export class MapScreen extends Component {
           initialRegion={{
             latitude: this.props.route.params.latitude,
             longitude: this.props.route.params.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
           }}
         >
           <Marker
@@ -78,16 +74,16 @@ export class MapScreen extends Component {
               style={tw`h-full w-full`}
               region={{
                 latitude: this.state.location?.lat || 46.8182,
-                longitude: this.state.location?.lng | 8.2275,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
+                longitude: this.state.location?.lng || 8.2275,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
               }}
+              ref={ref => this.MapViewRef = ref}
             >
               {
                 this.origin && this.destination &&
                 <MapViewDirections
                   apikey={API_KEY}
-                  mode="DRIVING"
                   origin={this.origin.description}
                   destination={this.destination.description}
                   strokeColor="black"
@@ -99,12 +95,17 @@ export class MapScreen extends Component {
                 <Marker
                   coordinate={{
                     latitude: this.state.location.lat,
-                    longitude: this.state.location.lng
+                    longitude: this.state.location.lng,
+                    latitudeDelta: 0.005,
+                    longitudeDelta: 0.005,
                   }}
-                  title={"title"}
-                  description={"description"}
-                  identifier="destination"
-                />}
+                  title={this.origin?.description.split(",")[0] || ""}
+                  description={this.origin?.description || ""}
+                  identifier="origin"
+                >
+                  <Image source={UberPng} style={{ width: 20, height: 20 }} />
+
+                </Marker>}
 
               {this.destination?.location &&
                 <Marker
@@ -112,9 +113,12 @@ export class MapScreen extends Component {
                     latitude: this.destination.location.lat,
                     longitude: this.destination.location.lng
                   }}
-                  title={"description"}
+                  title={this.destination.description.split(",")[0]}
                   description={this.destination.description}
-                />}
+                  identifier="destination"
+                >
+                  <Image source={UberPng} style={{ width: 20, height: 20 }} />
+                </Marker>}
             </MapView>
           </View>
           <View style={tw`h-1/2`}>
