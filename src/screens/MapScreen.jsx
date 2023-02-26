@@ -63,8 +63,6 @@ export class MapScreen extends Component {
           console.log(err);
         })
     }
-
-    console.log(this.props.nav.distance);
   }
 
   render() {

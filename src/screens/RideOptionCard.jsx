@@ -74,7 +74,10 @@ export class RideOptionCard extends Component {
                   <Text>{!Array.isArray(this.props.nav.distance) ? this.props.nav.distance.duration.text : ""}</Text>
                 </View>
 
-                <Text className="text-xl text-black">${item.multiplier * 22}</Text>
+                <Text className="text-xl text-black">{new Intl.NumberFormat("en-gb", {
+                  style: "currency",
+                  currency: "GBP" 
+                }).format(item.multiplier * ((!Array.isArray(this.props.nav.distance)) ? this.props.nav.distance.duration.value : 1000) / 100)}</Text>
               </TouchableOpacity>
             )}
           />
