@@ -23,7 +23,7 @@ export class NavOptions extends Component {
 
   render() {
     return (
-      <View>
+      <View className="mb-20">
         <FlatList
           data={data}
           horizontal

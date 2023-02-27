@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import MapView, { Marker, Polygon } from 'react-native-maps';
 import { connect } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
-import { selectOrigin, setDistance } from '../redux/slices/navSlice';
+import { selectOrigin, setDistance, setView } from '../redux/slices/navSlice';
 import { createStackNavigator } from "@react-navigation/stack";
 import NavigateCard from "../screens/NavigateCard";
 import RideOptionCard from "../screens/RideOptionCard";
@@ -37,6 +37,8 @@ export class MapScreen extends Component {
     // else {
     //   Alert.alert("Select", "please type your starting point in home screen", [{ style: "cancel" }])
     // }
+
+    this.props.changeView(true);
   }
 
   getTravelTime() {
@@ -150,7 +152,8 @@ export class MapScreen extends Component {
 
 const getDispatch = dispatch => {
   return {
-    changeDestination: (value) => dispatch(setDistance(value))
+    changeDestination: (value) => dispatch(setDistance(value)),
+    changeView: (value) => dispatch(setView(value))
   }
 }
 export default connect(selectOrigin, getDispatch)(MapScreen);
