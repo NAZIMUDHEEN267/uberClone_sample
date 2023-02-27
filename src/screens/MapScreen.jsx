@@ -38,7 +38,7 @@ export class MapScreen extends Component {
     //   Alert.alert("Select", "please type your starting point in home screen", [{ style: "cancel" }])
     // }
 
-    this.props.changeView(true);
+    this.props.changeView({show: true, card: true});
   }
 
   getTravelTime() {

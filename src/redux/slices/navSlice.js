@@ -5,8 +5,12 @@ const initialState = {
     destination: null,
     travelTimeInformation: null,
     searchHistory: [],
+    destHistory: [],
     distance: [], 
-    mapViewed: false
+    mapViewed: {
+        show: false,
+        card: true
+    }
 }
 
 const { actions, reducer } = createSlice({
@@ -25,6 +29,9 @@ const { actions, reducer } = createSlice({
         setHistory(state, action){
             state.searchHistory.push(action.payload);
         },
+        setDestHistory(state, action) {
+            state.destHistory.push(action.payload);
+        },
         setDistance(state, action){
             state.distance = action.payload;
         },
@@ -35,7 +42,7 @@ const { actions, reducer } = createSlice({
 });
 
 export default reducer;
-export const { setOrigin, setDestination, setTravelTimeInformation, setHistory, setDistance, setView } = actions;
+export const { setOrigin, setDestination, setTravelTimeInformation, setHistory, setDistance, setView, setDestHistory } = actions;
 
 // selectors
 export const selectOrigin = (state) => state;

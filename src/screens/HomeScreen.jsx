@@ -69,7 +69,7 @@ export class Home extends Component {
             nearbyPlacesAPI='GooglePlacesSearch'
           />
           {/* history */}
-          <ScrollView style={{ height: this.props.nav.searchHistory.length > 0 && this.props.nav.mapViewed ?  150 : 0, width: "100%", marginTop: 10 }}>
+          <ScrollView style={{ height: this.props.nav.searchHistory.length > 0 && this.props.nav.mapViewed.show ?  150 : 0, width: "100%", marginTop: 10 }}>
             {
               this.props.nav.mapViewed && this.props.nav.searchHistory.map((item, i) => {
                 const values = item.description.split(",");

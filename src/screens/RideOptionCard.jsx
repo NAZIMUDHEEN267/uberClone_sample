@@ -4,7 +4,7 @@ import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-han
 import { Icon, Image } from '@rneui/base'
 import tw from 'tailwind-react-native-classnames';
 import { connect } from 'react-redux';
-import { getDistance } from '../redux/slices/navSlice';
+import { getDistance, setView } from '../redux/slices/navSlice';
 import { API_KEY } from "@env";
 
 export class RideOptionCard extends Component {
@@ -12,6 +12,10 @@ export class RideOptionCard extends Component {
   constructor() {
     super();
     this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.changeView({ show: true, card: false });
   }
 
 
@@ -93,7 +97,8 @@ function getState(state) {
 
 function fetchDistance(dispatch) {
   return {
-    data: () => dispatch(getDistance(API_KEY))
+    data: () => dispatch(getDistance(API_KEY)),
+    changeView: (value) => dispatch(setView(value))
   }
 }
 export default connect(getState, fetchDistance)(RideOptionCard);

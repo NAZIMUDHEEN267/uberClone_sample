@@ -4,17 +4,20 @@ import OrderScreen from "../screens/OrderScreen";
 import MapScreen from "../screens/MapScreen";
 import { TouchableOpacity } from "react-native";
 import { Icon } from "@rneui/themed";
+import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 
 export default function HomeNavigator() {
+    const { card } = useSelector(state => state.nav.mapViewed);
+
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }} >
+        <Stack.Navigator screenOptions={{ headerShown: false, headerStyle: { backgroundColor: "transparent", elevation: 0, height: 100 } }}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} options={({ navigation }) => ({
-                headerShown: true,
+                headerShown: card,
                 title: "",
-                headerStyle: { backgroundColor: "transparent", elevation: 0, height: 100 },
+                headerStyle: {backgroundColor: "transparent", elevation: 0, height: 100 },
                 headerLeft: () => (
                     <TouchableOpacity
                         activeOpacity={.5}
