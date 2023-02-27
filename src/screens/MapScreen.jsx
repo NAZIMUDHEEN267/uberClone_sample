@@ -1,4 +1,4 @@
-import { View, Alert, Text } from 'react-native'
+import { View, Alert, Text, Animated } from 'react-native'
 import React, { Component } from 'react'
 import MapView, { Marker, Polygon } from 'react-native-maps';
 import { connect } from 'react-redux';
@@ -31,7 +31,7 @@ export class MapScreen extends Component {
   componentDidMount() {
     if (this.props.nav.origin) {
       this.setState({ fullMap: false, location: this.props.nav.origin.location })
-    } else if (this.props.route?.params) {
+    } if (this.props.route?.params) {
       this.setState({ ...this.state, fullMap: true })
     }
     // else {
@@ -68,21 +68,21 @@ export class MapScreen extends Component {
   render() {
     return (
       this.state.fullMap ?
-        <MapView
-          style={{ flex: 1 }}
-          initialRegion={{
-            latitude: this.props.route.params.latitude,
-            longitude: this.props.route.params.longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          }}
-        >
-          <Marker
-            coordinate={this.props.route.params}
-            title={"title"}
-            description={"description"}
-          />
-        </MapView>
+          <MapView
+            style={{flex: 1}}
+            initialRegion={{
+              latitude: this.props.route.params.latitude,
+              longitude: this.props.route.params.longitude,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}
+          >
+            <Marker
+              coordinate={this.props.route.params}
+              title={"title"}
+              description={"description"}
+            />
+          </MapView>
         :
         <View style={tw`flex-1`}>
           <View style={tw`h-1/2`}>
