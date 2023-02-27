@@ -12,7 +12,7 @@ export default function HomeNavigator() {
     const { card } = useSelector(state => state.nav.mapViewed);
 
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false, headerStyle: { backgroundColor: "transparent", elevation: 0, height: 100 } }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} options={({ navigation }) => ({
                 headerShown: card,
